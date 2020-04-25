@@ -62,13 +62,45 @@ class MyGame(arcade.Window):
 				self.listaPiso.append(wall)
 
 		def crearTuberias(listaCoordenadas):
-			for coordinate in listaCoordenadas:
-				wall = arcade.Sprite("assets/cylinder0.png", ESCALADO_TUBERIA)
-				wall.center_x = 64*coordinate[0]
-				wall.center_y = 64*coordinate[1] + 110
-				#wall.position = coordinate
-				self.listaPiso.append(wall)
+			for coordenadas in listaCoordenadas:
+				for altura in range(coordenadas[2]):
+					wall = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
+					wall.center_x = 64*coordenadas[0]
+					wall.center_y = 64*altura*coordenadas[1] + 96
+					self.listaPiso.append(wall)
 
+		"""
+		for altura in range(1):
+			wall = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
+			wall.center_x = 6*64
+			wall.center_y = altura*64 + 96
+			self.listaPiso.append(wall)
+		wall = arcade.Sprite("assets/cylinder0.png", ESCALADO_TUBERIA)
+		wall.center_x = 6*64
+		wall.center_y = altura*64 + 64 + 110
+		self.listaPiso.append(wall)
+
+		for altura in range(2):
+			wall = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
+			wall.center_x = 10*64
+			wall.center_y = altura*64 + 96
+			self.listaPiso.append(wall)
+		wall = arcade.Sprite("assets/cylinder0.png", ESCALADO_TUBERIA)
+		wall.center_x = 10*64
+		wall.center_y = altura*64 + 64 + 110
+		self.listaPiso.append(wall)
+
+		for altura in range(3):
+			wall = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
+			wall.center_x = 14*64
+			wall.center_y = altura*64 + 96
+			self.listaPiso.append(wall)
+		wall = arcade.Sprite("assets/cylinder0.png", ESCALADO_TUBERIA)
+		wall.center_x = 14*64
+		wall.center_y = altura*64 + 64 + 110
+		self.listaPiso.append(wall)
+		"""
+		
 		crearPiso( 0, 40, 0, True)
 		crearPiso(19, 40, 0, False)
 		crearPiso(19, 24, 1, False)
@@ -81,12 +113,12 @@ class MyGame(arcade.Window):
 		crearPiso(40, 41, 0, True)
 		crearPiso(19, 24, 2, True)
 
-		# This shows using a coordinate list to place sprites
-		listaTuberias = [[4, 0, 1],
-						 [8, 0, 1],
-						 [12,0, 0],
-						 [14,0, 2],
-						 [20,2, 0]]
+		#crearPiso(16, 17, 3, True)
+
+		# This shows using a coordenadas list to place sprites
+		listaTuberias = [[ 6, 0, 1],
+						 [10, 1, 2],
+						 [14, 2, 3]]
 
 		crearTuberias(listaTuberias)
 
