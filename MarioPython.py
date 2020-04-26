@@ -51,56 +51,36 @@ class MyGame(arcade.Window):
 		self.listaJugador.append(self.spriteJugador)
 
 		# Funciòn para crear piso
-		def crearPiso(inicio, final, altura, conPasto):
+		def crearPiso(inicio, final, posicionY, conPasto):
 			for x in range(64*inicio, 64*final, 64):
 				if conPasto == True:
-					wall = arcade.Sprite("assets/ground0.png", ESCALADO_SUELO)
+					spritePiso = arcade.Sprite("assets/ground0.png", ESCALADO_SUELO)
 				else:
-					wall = arcade.Sprite("assets/ground1.png", ESCALADO_SUELO)
-				wall.center_x = x
-				wall.center_y = 64*altura + 32
-				self.listaPiso.append(wall)
+					spritePiso = arcade.Sprite("assets/ground1.png", ESCALADO_SUELO)
+				spritePiso.center_x = x
+				spritePiso.center_y = 64*posicionY + 32
+				self.listaPiso.append(spritePiso)
 
-		def crearTuberias(listaCoordenadas):
-			for coordenadas in listaCoordenadas:
-				for altura in range(coordenadas[2]):
-					wall = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
-					wall.center_x = 64*coordenadas[0]
-					wall.center_y = 64*altura*coordenadas[1] + 96
-					self.listaPiso.append(wall)
-
-		"""
-		for altura in range(1):
-			wall = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
-			wall.center_x = 6*64
-			wall.center_y = altura*64 + 96
-			self.listaPiso.append(wall)
-		wall = arcade.Sprite("assets/cylinder0.png", ESCALADO_TUBERIA)
-		wall.center_x = 6*64
-		wall.center_y = altura*64 + 64 + 110
-		self.listaPiso.append(wall)
-
-		for altura in range(2):
-			wall = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
-			wall.center_x = 10*64
-			wall.center_y = altura*64 + 96
-			self.listaPiso.append(wall)
-		wall = arcade.Sprite("assets/cylinder0.png", ESCALADO_TUBERIA)
-		wall.center_x = 10*64
-		wall.center_y = altura*64 + 64 + 110
-		self.listaPiso.append(wall)
-
-		for altura in range(3):
-			wall = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
-			wall.center_x = 14*64
-			wall.center_y = altura*64 + 96
-			self.listaPiso.append(wall)
-		wall = arcade.Sprite("assets/cylinder0.png", ESCALADO_TUBERIA)
-		wall.center_x = 14*64
-		wall.center_y = altura*64 + 64 + 110
-		self.listaPiso.append(wall)
-		"""
+		# Funciòn para crear tuberia
+		def crearTuberia(coordenadaX, coordenadaY, tamaño):
+			for y in range(64*coordenadaY, 64*tamaño, 64):
+				spriteTuberia = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
+				spriteTuberia.center_x = 64*coordenadaX
+				spriteTuberia.center_y = y*coordenadaY + 32
+				self.listaPiso.append(spriteTuberia)
+			spriteTuberia = arcade.Sprite("assets/cylinder0.png", ESCALADO_TUBERIA)
+			spriteTuberia.center_x = 64*coordenadaX
+			spriteTuberia.center_y = 64*tamaño*coordenadaY + 45
+			self.listaPiso.append(spriteTuberia)
 		
+		crearTuberia( 4, 1, 1)
+		crearPiso( 6, 7, 1, True)
+		crearTuberia( 8, 1, 2)
+		crearPiso( 10, 11, 1, True)
+		crearTuberia(12, 1, 3)
+		crearPiso( 14, 15, 1, True)
+		crearTuberia(16, 1, 4)
+
 		crearPiso( 0, 40, 0, True)
 		crearPiso(19, 40, 0, False)
 		crearPiso(19, 24, 1, False)
@@ -113,14 +93,10 @@ class MyGame(arcade.Window):
 		crearPiso(40, 41, 0, True)
 		crearPiso(19, 24, 2, True)
 
-		#crearPiso(16, 17, 3, True)
-
 		# This shows using a coordenadas list to place sprites
 		listaTuberias = [[ 6, 0, 1],
 						 [10, 1, 2],
 						 [14, 2, 3]]
-
-		crearTuberias(listaTuberias)
 
 		#Creathe the "physics engine"
 		self.physics_engine = arcade.PhysicsEnginePlatformer(self.spriteJugador, self.listaPiso, GRAVEDAD)
