@@ -31,7 +31,7 @@ class MyGame(arcade.Window):
 		arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
 
 		self.listaJugador = None
-		self.listaPiso = None
+		self.listaSprites = None
 
 		# Variable del sprite del jugador
 		self.spriteJugador = None
@@ -42,7 +42,7 @@ class MyGame(arcade.Window):
 
 	def setup(self):
 		self.listaJugador = arcade.SpriteList()
-		self.listaPiso = arcade.SpriteList()
+		self.listaSprites = arcade.SpriteList()
 
 		# Crear Jugador
 		self.spriteJugador = arcade.Sprite("assets/mario.png", ESCALADO_PERSONAJE)
@@ -52,35 +52,46 @@ class MyGame(arcade.Window):
 
 		# Funciòn para crear piso
 		def crearPiso(inicio, final, posicionY, conPasto):
-			for x in range(64*inicio, 64*final, 64):
+			for posicionX in range(inicio, final):
 				if conPasto == True:
 					spritePiso = arcade.Sprite("assets/ground0.png", ESCALADO_SUELO)
 				else:
 					spritePiso = arcade.Sprite("assets/ground1.png", ESCALADO_SUELO)
-				spritePiso.center_x = x
+				spritePiso.center_x = 64*posicionX
 				spritePiso.center_y = 64*posicionY + 32
-				self.listaPiso.append(spritePiso)
-
+				self.listaSprites.append(spritePiso)
+		"""
 		# Funciòn para crear tuberia
 		def crearTuberia(coordenadaX, coordenadaY, tamaño):
-			for y in range(64*coordenadaY, 64*tamaño, 64):
+			for y in range(coordenadaY, tamaño+coordenadaY):
 				spriteTuberia = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
 				spriteTuberia.center_x = 64*coordenadaX
-				spriteTuberia.center_y = y*coordenadaY + 32
-				self.listaPiso.append(spriteTuberia)
+				spriteTuberia.center_y = 64*y + 32 + 64*coordenadaY
+				self.listaSprites.append(spriteTuberia)
 			spriteTuberia = arcade.Sprite("assets/cylinder0.png", ESCALADO_TUBERIA)
 			spriteTuberia.center_x = 64*coordenadaX
-			spriteTuberia.center_y = 64*tamaño*coordenadaY + 45
-			self.listaPiso.append(spriteTuberia)
-		
-		crearTuberia( 4, 1, 1)
-		crearPiso( 6, 7, 1, True)
-		crearTuberia( 8, 1, 2)
-		crearPiso( 10, 11, 1, True)
-		crearTuberia(12, 1, 3)
-		crearPiso( 14, 15, 1, True)
-		crearTuberia(16, 1, 4)
+			spriteTuberia.center_y = 64*tamaño + 110 + 64*coordenadaY -64
+			self.listaSprites.append(spriteTuberia)
+		"""
+		spriteTuberia = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
+		spriteTuberia.center_x = 64*8
+		spriteTuberia.center_y = 64*1 + 32 + 64*2
+		self.listaSprites.append(spriteTuberia)
+		spriteTuberia = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
+		spriteTuberia.center_x = 64*8
+		spriteTuberia.center_y = 64*3 + 32 + 64*2
+		self.listaSprites.append(spriteTuberia)
+		spriteTuberia = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
+		spriteTuberia.center_x = 64*8
+		spriteTuberia.center_y = 64*2 + 32 + 64*2
+		self.listaSprites.append(spriteTuberia)
 
+		spriteTuberia = arcade.Sprite("assets/cylinder0.png", ESCALADO_TUBERIA)
+		spriteTuberia.center_x = 64*8
+		spriteTuberia.center_y = 64*3 + 110 + 64*2
+		self.listaSprites.append(spriteTuberia)
+		
+		
 		crearPiso( 0, 40, 0, True)
 		crearPiso(19, 40, 0, False)
 		crearPiso(19, 24, 1, False)
@@ -94,17 +105,27 @@ class MyGame(arcade.Window):
 		crearPiso(19, 24, 2, True)
 
 		# This shows using a coordenadas list to place sprites
-		listaTuberias = [[ 6, 0, 1],
-						 [10, 1, 2],
-						 [14, 2, 3]]
+		listaTuberias = [[ 4, 1, 0],
+						 [ 8, 1, 1],
+						 [12, 1, 2]]
+
+		for coordenadas in listaTuberias:
+			crearTuberia(coordenadas[0], coordenadas[1], coordenadas[2])
+
+		listaPiso = [[ 6, 7, 1, True],
+					 [10,11, 1, True],
+					 [14,15, 1, True]]
+
+		for coordenadas in listaPiso:
+			crearPiso(coordenadas[0], coordenadas[1], coordenadas[2], coordenadas[3])
 
 		#Creathe the "physics engine"
-		self.physics_engine = arcade.PhysicsEnginePlatformer(self.spriteJugador, self.listaPiso, GRAVEDAD)
+		self.physics_engine = arcade.PhysicsEnginePlatformer(self.spriteJugador, self.listaSprites, GRAVEDAD)
 	
 	def on_draw(self):
 		arcade.start_render()
 		self.listaJugador.draw()
-		self.listaPiso.draw()
+		self.listaSprites.draw()
 
 	def on_key_press(self, key, modifiers):
 		"""Called whenever a key is pressed. """
