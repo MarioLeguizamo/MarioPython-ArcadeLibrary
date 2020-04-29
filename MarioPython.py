@@ -60,37 +60,18 @@ class MyGame(arcade.Window):
 				spritePiso.center_x = 64*posicionX
 				spritePiso.center_y = 64*posicionY + 32
 				self.listaSprites.append(spritePiso)
-		"""
+						 
 		# Funciòn para crear tuberia
-		def crearTuberia(coordenadaX, coordenadaY, tamaño):
-			for y in range(coordenadaY, tamaño+coordenadaY):
+		def crearTuberia(posicionX, posicionY, tamaño):
+			for y in range(posicionY, posicionY+tamaño-1):
 				spriteTuberia = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
-				spriteTuberia.center_x = 64*coordenadaX
-				spriteTuberia.center_y = 64*y + 32 + 64*coordenadaY
+				spriteTuberia.center_x = 64*posicionX
+				spriteTuberia.center_y = 64*y + 32 
 				self.listaSprites.append(spriteTuberia)
 			spriteTuberia = arcade.Sprite("assets/cylinder0.png", ESCALADO_TUBERIA)
-			spriteTuberia.center_x = 64*coordenadaX
-			spriteTuberia.center_y = 64*tamaño + 110 + 64*coordenadaY -64
+			spriteTuberia.center_x = 64*posicionX
+			spriteTuberia.center_y = 64*(posicionY + tamaño - 1) + 46 
 			self.listaSprites.append(spriteTuberia)
-		"""
-		spriteTuberia = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
-		spriteTuberia.center_x = 64*8
-		spriteTuberia.center_y = 64*1 + 32 + 64*2
-		self.listaSprites.append(spriteTuberia)
-		spriteTuberia = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
-		spriteTuberia.center_x = 64*8
-		spriteTuberia.center_y = 64*3 + 32 + 64*2
-		self.listaSprites.append(spriteTuberia)
-		spriteTuberia = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
-		spriteTuberia.center_x = 64*8
-		spriteTuberia.center_y = 64*2 + 32 + 64*2
-		self.listaSprites.append(spriteTuberia)
-
-		spriteTuberia = arcade.Sprite("assets/cylinder0.png", ESCALADO_TUBERIA)
-		spriteTuberia.center_x = 64*8
-		spriteTuberia.center_y = 64*3 + 110 + 64*2
-		self.listaSprites.append(spriteTuberia)
-		
 		
 		crearPiso( 0, 40, 0, True)
 		crearPiso(19, 40, 0, False)
@@ -104,22 +85,25 @@ class MyGame(arcade.Window):
 		crearPiso(40, 41, 0, True)
 		crearPiso(19, 24, 2, True)
 
-		# This shows using a coordenadas list to place sprites
-		listaTuberias = [[ 4, 1, 0],
-						 [ 8, 1, 1],
-						 [12, 1, 2]]
-
-		for coordenadas in listaTuberias:
-			crearTuberia(coordenadas[0], coordenadas[1], coordenadas[2])
-
 		listaPiso = [[ 6, 7, 1, True],
 					 [10,11, 1, True],
 					 [14,15, 1, True]]
 
+		listaTuberias = [[ 4, 1, 1],
+						 [ 8, 1, 2],
+						 [12, 1, 3],
+						 [16, 1, 4],
+						 [20, 3, 2],
+						 [24, 3, 3],
+						 [28, 6, 2]]
+
 		for coordenadas in listaPiso:
 			crearPiso(coordenadas[0], coordenadas[1], coordenadas[2], coordenadas[3])
 
-		#Creathe the "physics engine"
+		for coordenadas in listaTuberias:
+			crearTuberia(coordenadas[0], coordenadas[1], coordenadas[2])		
+
+		#Iniciando "motor de físicas"
 		self.physics_engine = arcade.PhysicsEnginePlatformer(self.spriteJugador, self.listaSprites, GRAVEDAD)
 	
 	def on_draw(self):
@@ -152,7 +136,7 @@ class MyGame(arcade.Window):
 		# Move the player with the physics engine
 		self.physics_engine.update()
 
-		# --- Manage Scrolling ---
+		# Scrolling
 		changed = False
 
         # Scroll left
