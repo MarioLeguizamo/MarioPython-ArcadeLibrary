@@ -45,7 +45,7 @@ class MyGame(arcade.Window):
 		self.listaSprites = arcade.SpriteList()
 
 		# Crear Jugador
-		self.spriteJugador = arcade.Sprite("assets/mario.png", ESCALADO_PERSONAJE)
+		self.spriteJugador = arcade.Sprite("assets/sprites/mario.png", ESCALADO_PERSONAJE)
 		self.spriteJugador.center_x = 64
 		self.spriteJugador.center_y = 93
 		self.listaJugador.append(self.spriteJugador)
@@ -54,23 +54,31 @@ class MyGame(arcade.Window):
 		def crearPiso(inicio, final, posicionY, conPasto):
 			for posicionX in range(inicio, final):
 				if conPasto == True:
-					spritePiso = arcade.Sprite("assets/ground0.png", ESCALADO_SUELO)
+					spritePiso = arcade.Sprite("assets/sprites/ground0.png", ESCALADO_SUELO)
 				else:
-					spritePiso = arcade.Sprite("assets/ground1.png", ESCALADO_SUELO)
+					spritePiso = arcade.Sprite("assets/sprites/ground1.png", ESCALADO_SUELO)
 				spritePiso.center_x = 64*posicionX
 				spritePiso.center_y = 64*posicionY + 32
 				self.listaSprites.append(spritePiso)
+
+		# Funciòn para crear bloque
+		def crearBloque(inicio, final, posicionY):
+			for posicionX in range(inicio, final):
+				spriteBloque = arcade.Sprite("assets/sprites/wall0.png", ESCALADO_SUELO)
+				spriteBloque.center_x = 64*posicionX
+				spriteBloque.center_y = 64*posicionY + 32
+				self.listaSprites.append(spriteBloque)
 						 
 		# Funciòn para crear tuberia
-		def crearTuberia(posicionX, posicionY, tamaño):
-			for y in range(posicionY, posicionY+tamaño-1):
-				spriteTuberia = arcade.Sprite("assets/cylinder1.png", ESCALADO_TUBERIA)
+		def crearTuberia(posicionX, posicionY, altura):
+			for y in range(posicionY, posicionY+altura-1):
+				spriteTuberia = arcade.Sprite("assets/sprites/cylinder1.png", ESCALADO_TUBERIA)
 				spriteTuberia.center_x = 64*posicionX
 				spriteTuberia.center_y = 64*y + 32 
 				self.listaSprites.append(spriteTuberia)
-			spriteTuberia = arcade.Sprite("assets/cylinder0.png", ESCALADO_TUBERIA)
+			spriteTuberia = arcade.Sprite("assets/sprites/cylinder0.png", ESCALADO_TUBERIA)
 			spriteTuberia.center_x = 64*posicionX
-			spriteTuberia.center_y = 64*(posicionY + tamaño - 1) + 46 
+			spriteTuberia.center_y = 64*(posicionY + altura - 1) + 46 
 			self.listaSprites.append(spriteTuberia)
 		
 		crearPiso( 0, 40, 0, True)
@@ -85,20 +93,23 @@ class MyGame(arcade.Window):
 		crearPiso(40, 41, 0, True)
 		crearPiso(19, 24, 2, True)
 
-		listaPiso = [[ 6, 7, 1, True],
-					 [10,11, 1, True],
-					 [14,15, 1, True]]
+		listaBloques = [[ 6, 7, 2],
+					    [10,11, 2],
+					    [14,15, 2],
+					    [22,23, 4],
+						[35,40, 8]]
 
 		listaTuberias = [[ 4, 1, 1],
 						 [ 8, 1, 2],
 						 [12, 1, 3],
 						 [16, 1, 4],
-						 [20, 3, 2],
-						 [24, 3, 3],
-						 [28, 6, 2]]
+						 [20, 3, 3],
+						 [24, 3, 4],
+						 [28, 6, 2],
+						 [32, 6, 1]]
 
-		for coordenadas in listaPiso:
-			crearPiso(coordenadas[0], coordenadas[1], coordenadas[2], coordenadas[3])
+		for coordenadas in listaBloques:
+			crearBloque(coordenadas[0], coordenadas[1], coordenadas[2])
 
 		for coordenadas in listaTuberias:
 			crearTuberia(coordenadas[0], coordenadas[1], coordenadas[2])		
