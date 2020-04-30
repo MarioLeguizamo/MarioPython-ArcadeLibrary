@@ -40,6 +40,8 @@ class MyGame(arcade.Window):
 		self.seguimientoX = 0
 		self.seguimientoY = 0
 
+
+
 	def setup(self):
 		self.listaJugador = arcade.SpriteList()
 		self.listaSprites = arcade.SpriteList()
@@ -81,23 +83,27 @@ class MyGame(arcade.Window):
 			spriteTuberia.center_y = 64*(posicionY + altura - 1) + 46 
 			self.listaSprites.append(spriteTuberia)
 		
-		crearPiso( 0, 40, 0, True)
-		crearPiso(19, 40, 0, False)
-		crearPiso(19, 24, 1, False)
-		crearPiso(24, 40, 1, False)
-		crearPiso(24, 40, 2, False)
-		crearPiso(24, 40, 3, False)
-		crearPiso(24, 25, 4, True)
-		crearPiso(25, 40, 4, False)
-		crearPiso(25, 40, 5, True)
-		crearPiso(40, 41, 0, True)
-		crearPiso(19, 24, 2, True)
+		listaPiso = [[ 0, 40, 0, True],
+					 [19, 40, 0, False],
+					 [19, 24, 1, False],
+		 			 [24, 40, 1, False],
+					 [24, 40, 2, False],
+					 [24, 40, 3, False],
+					 [24, 25, 4, True],
+					 [25, 40, 4, False],
+					 [25, 40, 5, True],
+					 [19, 24, 2, True],
+					 [40, 41, 0, True]]
+		for coordenadas in listaPiso:
+			crearPiso(coordenadas[0], coordenadas[1], coordenadas[2], coordenadas[3])
 
 		listaBloques = [[ 6, 7, 2],
 					    [10,11, 2],
 					    [14,15, 2],
 					    [22,23, 4],
 						[35,40, 8]]
+		for coordenadas in listaBloques:
+			crearBloque(coordenadas[0], coordenadas[1], coordenadas[2])
 
 		listaTuberias = [[ 4, 1, 1],
 						 [ 8, 1, 2],
@@ -107,20 +113,20 @@ class MyGame(arcade.Window):
 						 [24, 3, 4],
 						 [28, 6, 2],
 						 [32, 6, 1]]
-
-		for coordenadas in listaBloques:
-			crearBloque(coordenadas[0], coordenadas[1], coordenadas[2])
-
 		for coordenadas in listaTuberias:
-			crearTuberia(coordenadas[0], coordenadas[1], coordenadas[2])		
+			crearTuberia(coordenadas[0], coordenadas[1], coordenadas[2])
 
 		#Iniciando "motor de físicas"
 		self.physics_engine = arcade.PhysicsEnginePlatformer(self.spriteJugador, self.listaSprites, GRAVEDAD)
+
+
 	
 	def on_draw(self):
 		arcade.start_render()
 		self.listaJugador.draw()
 		self.listaSprites.draw()
+
+
 
 	def on_key_press(self, key, modifiers):
 		"""Called whenever a key is pressed. """
@@ -133,6 +139,8 @@ class MyGame(arcade.Window):
 		elif key == arcade.key.RIGHT or key == arcade.key.D:
 			self.spriteJugador.change_x = VELOCIDAD_MOVIMINETO_JUGADOR
 
+
+
 	def on_key_release(self, key, modifiers):
 		"""Called when the user releases a key. """
 
@@ -140,6 +148,8 @@ class MyGame(arcade.Window):
 			self.spriteJugador.change_x = 0
 		elif key == arcade.key.RIGHT or key == arcade.key.D:
 			self.spriteJugador.change_x = 0
+
+
 
 	def on_update(self, delta_time):
 		""" Movement and game logic """
@@ -182,6 +192,8 @@ class MyGame(arcade.Window):
 
 			# Do the scrolling
 			arcade.set_viewport(self.seguimientoX, ANCHO_PANTALLA + self.seguimientoX, self.seguimientoY,ALTO_PANTALLA + self.seguimientoY)
+
+
 
 def main():
 	window = MyGame()
