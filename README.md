@@ -2,8 +2,7 @@
 
 Videogame de Mario Bros creado en Python conla  librería arcade.
 
-!
-[](https://github.com/MarioLeguizamo/MarioPython-ArcadeLibrary/blob/master/assets/Images/ImageMarioPython.png)
+![](https://github.com/MarioLeguizamo/MarioPython-ArcadeLibrary/blob/master/assets/Images/ImageMarioPython.png)
 
 Para instalar la librería arcade, usa en la terminal:
 
@@ -29,8 +28,7 @@ Para crear el piso llamamos a la función def crearPiso(inicio, final, posicionY
 - posicionY: valor entero que indica la posición en el eje y en la que se dibuja el piso.
 - conPasto: valor booleano que indica que sprite tomar.
 
-!
-[](https://github.com/MarioLeguizamo/MarioPython-ArcadeLibrary/blob/master/assets/Images/marioTutorial0.png)
+![](https://github.com/MarioLeguizamo/MarioPython-ArcadeLibrary/blob/master/assets/Images/marioTutorial0.png)
 
 
 ## Crear Tuberías
@@ -41,8 +39,7 @@ Para agregar algunas tuberías llamamos a la función def crearTuberia(posicionX
 - posicionY: valor entero que indica la posición en el eje y en la que se dibuja la tubería.
 - altura: valor entero que indica la altura de la tubería.
 
-!
-[](https://github.com/MarioLeguizamo/MarioPython-ArcadeLibrary/blob/master/assets/Images/marioTutorial1.png)
+![](https://github.com/MarioLeguizamo/MarioPython-ArcadeLibrary/blob/master/assets/Images/marioTutorial1.png)
 
 
 ## Crear Bloques
@@ -53,14 +50,12 @@ Para agregar bloques llamamos a la función def crearBloque(inicio, final, posic
 - final: valor entero que indica hasta donde se dibuja el conjunto de bloques.
 - posicionY: valor entero que indica la posición en el eje y en la que se dibuja el conjunto de bloques.
 
-!
-[](https://github.com/MarioLeguizamo/MarioPython-ArcadeLibrary/blob/master/assets/Images/marioTutorial2.png)
+![](https://github.com/MarioLeguizamo/MarioPython-ArcadeLibrary/blob/master/assets/Images/marioTutorial2.png)
 
 
 Finalmente, así es como queda el escenario con solo cuatro líneas de código.
 
-!
-[](https://github.com/MarioLeguizamo/MarioPython-ArcadeLibrary/blob/master/assets/Images/marioTutorial3.png)
+![](https://github.com/MarioLeguizamo/MarioPython-ArcadeLibrary/blob/master/assets/Images/marioTutorial3.png)
 
 Para escenarios o niveles más detallados, con varios elementos, recomiendo crear una lista con los argumentos e iterar con un ciclo para construirlos, por ejemplo.
 
