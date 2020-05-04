@@ -32,6 +32,7 @@ class MyGame(arcade.Window):
 
 		self.listaJugador = None
 		self.listaSprites = None
+		self.listaOtra = None
 
 		# Variable del sprite del jugador
 		self.spriteJugador = None
@@ -45,6 +46,7 @@ class MyGame(arcade.Window):
 	def setup(self):
 		self.listaJugador = arcade.SpriteList()
 		self.listaSprites = arcade.SpriteList()
+		self.listaOtra = arcade.SpriteList()
 
 		# Crear Jugador
 		self.spriteJugador = arcade.Sprite("assets/sprites/mario.png", ESCALADO_PERSONAJE)
@@ -82,6 +84,24 @@ class MyGame(arcade.Window):
 			spriteTuberia.center_x = 64*posicionX
 			spriteTuberia.center_y = 64*(posicionY + altura - 1) + 46 
 			self.listaSprites.append(spriteTuberia)
+
+		def crearNube(inicio, final, posicionY):
+			for posicionX in range(inicio, final):
+				spriteNube = arcade.Sprite("assets/sprites/cloud.png", ESCALADO_SUELO)
+				spriteNube.center_x = 64*posicionX
+				spriteNube.center_y = 64*posicionY + 30
+				self.listaOtra.append(spriteNube)
+
+		def crearArbusto(inicio, final, posicionY):
+			for posicionX in range(inicio, final):
+				spriteArbusto = arcade.Sprite("assets/sprites/bush.png", ESCALADO_SUELO)
+				spriteArbusto.center_x = 64*posicionX
+				spriteArbusto.center_y = 64*posicionY + 28
+				self.listaOtra.append(spriteArbusto)
+
+		crearNube(1,2,6)
+		crearNube(31,32,11)
+		crearArbusto(36,39,6)
 		
 		listaPiso = [[ 0, 40, 0, True],
 					 [19, 40, 0, False],
@@ -125,6 +145,7 @@ class MyGame(arcade.Window):
 		arcade.start_render()
 		self.listaJugador.draw()
 		self.listaSprites.draw()
+		self.listaOtra.draw()
 
 
 
