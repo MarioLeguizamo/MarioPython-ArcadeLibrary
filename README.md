@@ -2,7 +2,7 @@
 
 Videogame de Mario Bros creado en Python conla  librería arcade.
 
-![](https://github.com/MarioLeguizamo/MarioPython-ArcadeLibrary/blob/master/assets/Images/ImageMarioPython.png)
+![](https://github.com/MarioLeguizamo/MarioPython-ArcadeLibrary/blob/master/assets/Images/MarioPython0.png)
 
 Para instalar la librería arcade, usa en la terminal:
 
@@ -64,3 +64,15 @@ Para escenarios o niveles más detallados, con varios elementos, recomiendo crea
   - crearTuberia(coordenadas[0], coordenadas[1], coordenadas[2])
 
 Estaré actualizando el repositorio y definiendo nuevas funciones para agregar más funcionalidades y elementos al juego.
+
+
+### Actualización Mayo 4, 2020.
+
+Agregue las funciones.
+
+- def crearNube(inicio, final, posicionY):
+- def crearArbusto(inicio, final, posicionY):
+
+Funcionan de la misma forma que crearBloque(), con la diferencia de que no contienen fisicas.
+
+![](https://github.com/MarioLeguizamo/MarioPython-ArcadeLibrary/blob/master/assets/Images/MarioPython1.png)
